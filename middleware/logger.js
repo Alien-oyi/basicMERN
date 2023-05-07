@@ -4,7 +4,7 @@ const fs = require('fs')
 const fsPromises = require('fs').promises
 const path = require('path')
 
-const logEvent = async (message, logFileName) => {
+const logEvents = async (message, logFileName) => {
     const dataTime = `${format(new Date(), 'yyyy-MM-dd\tHH:mm:ss')}`
     const logItem = `${dataTime}\t${uuid()}\t${message}\n`
     try {
@@ -18,8 +18,8 @@ const logEvent = async (message, logFileName) => {
 }
 
 const logger = (req, res, next) => {
-    logEvent(`${req.method}\t${req.url}\t${req.headers.origin}`, 'reqLog.log')
+    logEvents(`${req.method}\t${req.url}\t${req.headers.origin}`, 'reqLog.log')
     console.log(`${req.method} ${req.path}`)
     next()
 }
-module.exports = { logger, logEvent }
+module.exports = { logger, logEvents }
